@@ -2,16 +2,17 @@
 
 This project is a web application for monitoring noise levels in a library or study area. It provides a real-time dashboard to visualize the noise levels in different designated areas and sends alerts when the noise exceeds a certain threshold.
 
-## Features
+## Project Overview
+The M5Stack device serves as the noise sensor, capturing audio, measuring decibel (dB) levels, and communicating this data via MQTT to a real-time web dashboard. Alerts are triggered and displayed when noise exceeds predefined thresholds.
 
-*   **Real-time Noise Monitoring:** Uses MQTT to receive and display real-time noise level data.
-*   **Area Management:** Add, edit, and manage different areas for noise monitoring.
-*   **Alerts:** Get alerts when noise levels are high.
-*   **Analytics:** View analytics and historical data for noise levels.
-*   **Responsive Design:** The application is designed to work on different screen sizes.
+## Hardware
+*   **M5Stack Development Board:** The core of the noise monitoring system.
+*   **Built-in Display:** Shows current time, date, battery status, and noise levels.
+*   **Internal Microphone:** Captures ambient sound to measure noise levels.
+*   **LEDs (connected to GPIO 25):** Visually indicate noise status (Green for quiet, Orange for normal, Red for loud/alert).
 
-## Technologies Used
-
+## Frontend Technologies
+ historical data for noise levels.
 *   **Frontend:**
     *   React
     *   TypeScript
