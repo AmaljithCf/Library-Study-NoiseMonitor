@@ -40,7 +40,7 @@ CRGB leds[NUM_LEDS];
 const unsigned long STARTUP_GRACE_PERIOD_MS = 5000;
 const unsigned long PROCESSING_INTERVAL_MS = 200;
 const unsigned long NORMAL_NOISE_ALERT_DURATION_MS = 5000;
-const unsigned long ABOVE_QUIET_ORANGE_DURATION_MS = 2000;
+// const unsigned long ABOVE_QUIET_ORANGE_DURATION_MS = 2000; // Removed as it's no longer needed
 const unsigned long LOUD_FLASH_DURATION_MS = 3000;
 
 const size_t MIC_BUFFER_SIZE = 512;
@@ -65,7 +65,7 @@ NoiseCategory currentNoiseCategory = QUIET;
 
 unsigned long startupGracePeriodEnd = 0;
 unsigned long normalStateStartTime = 0;
-unsigned long aboveQuietStartTime = 0;
+// unsigned long aboveQuietStartTime = 0; // Removed as it's no longer needed
 unsigned long loudFlashEndTime = 0;
 bool loudAlertSent = true;
 String queuedAlertReason = "";
@@ -261,19 +261,13 @@ void handleStatusLED() {
     FastLED.show();
     return;
   }
+  // --- MODIFIED LOGIC FOR ORANGE LED ---
   if (currentNoiseDB < THRESHOLD_QUIET) {
     fill_solid(leds, NUM_LEDS, CRGB::Green);
-    aboveQuietStartTime = 0;
-  } else {
-    if (aboveQuietStartTime == 0) {
-      aboveQuietStartTime = millis();
-    }
-    if (millis() - aboveQuietStartTime > ABOVE_QUIET_ORANGE_DURATION_MS) {
-      fill_solid(leds, NUM_LEDS, CRGB::Orange);
-    } else {
-      fill_solid(leds, NUM_LEDS, CRGB::Green);
-    }
+  } else { // currentNoiseDB >= THRESHOLD_QUIET
+    fill_solid(leds, NUM_LEDS, CRGB::Orange);
   }
+  // --- END MODIFIED LOGIC ---
   FastLED.show();
 }
 
